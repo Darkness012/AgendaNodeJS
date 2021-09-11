@@ -3,6 +3,18 @@ const Events = require("./event_model.js");
 var ObjectId = require('mongoose').Types.ObjectId; 
 
 module.exports = {
+
+    createUser(user){
+        return new Promise((resolve, reject)=>{
+            let newUser = new Users(user);
+            newUser.save((err, newUser)=>{
+                if(err) reject(err);
+
+                resolve("OK");
+            })
+        });
+    },
+
     checkUser(user){
         return new Promise((resolve, reject)=>{
             Users.find({email:user.email}).exec(function(err, docs) {
